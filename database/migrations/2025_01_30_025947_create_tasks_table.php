@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name'); // Membuat kolom name bertipe string
             $table->string('description')->nullable(); // Kolom description bertipe string yang bisa bernilai null
             $table->boolean('is_completed')->default(false); // Kolom is_completed bertipe boolean dengan default false
-            $table->enum('priority', ['low', 'medium', 'high'])->default('medium'); 
+            $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
             // Kolom priority bertipe enum dengan nilai low, medium, dan high, default medium
             $table->timestamps(); // Membuat kolom created_at dan updated_at
 
