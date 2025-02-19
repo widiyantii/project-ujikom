@@ -30,13 +30,14 @@ class Task extends Model
     // Accessor untuk mendapatkan kelas prioritas berdasarkan nilai priority
     public function getPriorityClassAttribute()
     {
-        return match ($this->attributes['priority']) {
-            'low' => 'success',
-            'medium' => 'warning',
-            'high' => 'danger',
-            default => 'secondary'
+        return match ($this->priority) {
+            'low' => 'success',   // Hijau untuk prioritas rendah
+            'medium' => 'dark', // hitam untuk prioritas menengah
+            'high' => 'danger',   // Merah untuk prioritas tinggi
+            default => 'secondary', // Warna default (abu-abu)
         };
     }
+
 
     // Relasi Many-to-One: Task milik TaskList
     public function list()

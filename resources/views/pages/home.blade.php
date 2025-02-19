@@ -1,6 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    body {
+        background-image: url('images/i.jpg');
+        background-size: cover;
+        /* Agar gambar menutupi seluruh area */
+        background-position: center;
+        /* Pusatkan gambar */
+        background-repeat: no-repeat;
+        /* Jangan ulangi gambar */
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        /* Efek zoom saat hover */
+    }
+
+    .btn {
+        transition: background-color 0.3s, transform 0.2s;
+        /* Transisi untuk tombol */
+    }
+
+    .btn:hover {
+        transform: scale(1.1);
+        /* Efek zoom saat hover pada tombol */
+    }
+
+    .badge {
+        font-size: 0.9em;
+        /* Ukuran font badge */
+    }
+</style>
 <div id="content" class="overflow-y-hidden overflow-x-hidden">
     <!-- Jika tidak ada list tugas, tampilkan pesan dan tombol tambah -->
     @if ($lists->count() == 0)
@@ -11,7 +42,7 @@
             <i class="bi bi-plus-square fs-1"></i>
         </button>
     </div>
-    <!-- ode ini digunakan untuk: ✅ Menampilkan pesan ketika daftar tugas kosong.
+    <!-- kode ini digunakan untuk: ✅ Menampilkan pesan ketika daftar tugas kosong.
 ✅ Menyediakan tombol untuk menambahkan daftar tugas baru melalui modal pop-up. -->
     @endif
 
@@ -21,7 +52,7 @@
             <form action="{{ route('home') }}" method="GET" class="d-flex gap-2">
                 <input type="text" class="form-control" name="query" placeholder="Cari tugas atau list..."
                     value="{{ request()->query('query') }}">
-                <button type="submit" class="btn btn-outline-primary">Cari</button>
+                <button type="submit" class="btn btn-outline-danger">Cari</button>
             </form>
         </div>
     </div>
@@ -55,10 +86,8 @@
                             <div class="d-flex justify-content-center gap-2">
                                 <!-- Indikator prioritas tugas -->
                                 @if ($task->priority == 'high' && !$task->is_completed)
-                                <div class="spinner-grow spinner-grow-sm text-{{ $task->priorityClass }}"
-                                    role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
+                                <!-- ✅ Cek apakah tugas memiliki prioritas "high" dan belum selesai (is_completed == false)
+✅ Jika benar, maka akan menampilkan elemen berikutnya. -->
                                 <!-- Kode ini berfungsi untuk: ✅ Menampilkan daftar tugas dalam bentuk kartu kecil.
 ✅ Menandai tugas yang selesai dengan warna hijau.
 ✅ Menampilkan indikator "loading" untuk tugas prioritas tinggi yang belum selesai -->
@@ -122,7 +151,7 @@
                 </div>
                 @endforeach
                 <!-- Tombol tambah tugas dalam list -->
-                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal"
                     data-bs-target="#addTaskModal" data-list="{{ $list->id }}">
                     <span class="d-flex align-items-center justify-content-center">
                         <i class="bi bi-plus fs-5"></i>
@@ -130,12 +159,19 @@
                     </span>
                 </button>
             </div>
+            <!-- ✅ Kode ini menampilkan tombol untuk menambahkan tugas baru ke dalam list tertentu.
+✅ Saat diklik, tombol membuka modal untuk menginput tugas baru.
+✅ Menggunakan atribut data-list untuk menghubungkan tugas ke list yang benar -->
 
             <!-- Footer kartu, menampilkan jumlah tugas -->
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <p class="card-text">{{ $list->tasks->count() }} Tugas</p>
             </div>
         </div>
+
+        <!-- ✅ Kode ini menampilkan jumlah tugas dalam setiap list di bagian bawah kartu.
+✅ Menggunakan $list->tasks->count() untuk menghitung jumlah tugas secara otomatis.
+✅ Dibantu dengan Bootstrap untuk tampilan yang rapi dan responsif. -->
         @endforeach
 
         <!-- Tombol tambah list baru jika list sudah ada -->
@@ -147,6 +183,10 @@
                 Tambah
             </span>
         </button>
+        <!-- ✅ Kode ini membuat tombol untuk menampilkan modal tambah list baru.
+✅ Menggunakan Bootstrap (btn-outline-danger, data-bs-toggle="modal") agar tampilan lebih interaktif.
+✅ Saat diklik, modal dengan ID #addListModal akan muncul untuk menambahkan daftar tugas baru -->
+
         @endif
     </div>
 </div>
