@@ -114,6 +114,10 @@
                             </button>
                         </form>
                     </div>
+                    <!-- ✅ Kode ini menampilkan tombol untuk menyelesaikan tugas.
+✅ Saat ditekan, tugas akan diperbarui menjadi selesai (completed).
+✅ Menggunakan metode PATCH untuk memperbarui status di database.  -->
+
                     @endif
                 </div>
                 @endforeach
